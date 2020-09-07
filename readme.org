@@ -1,0 +1,3 @@
+* Bot para discord
+Para que funcione hay que crear el archivo .env y anadir el token del bot creado
+desde las developer tools, con el formato ~DISCORDJS_BOT_TOKEN=ChURro.DeLTok3n~
