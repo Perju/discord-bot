@@ -1,29 +1,19 @@
 require("dotenv").config();
-
+const axios = require("axios");
 const { Client } = require("discord.js");
 
 const client = new Client();
 
-const { dockStart } = require("@nlpjs/basic");
-const { Language } = require("@nlpjs/language");
-
-const language = new Language();
-
-let nlp;
-(async () => {
-  const dock = await dockStart();
-  nlp = dock.get('nlp');
-})();
-
 const response = async (message) => {
-  let guess = language.guessBest(message.content, ["en", "es"]);
-  return await nlp.process(guess.alpha2, message.content);
+  const options = {
+    method: "GET",
+    url: "http://127.0.0.1:3000/nlp",
+    json: true,
+    data: { frase: message.content }
+  }
+  return await axios(options);
 }
 const PREFIX = "$";
-
-const sms = require("./messages");
-const messages = sms.text;
-const getMessage = sms.util.getRndEl;
 
 client.on("ready", () => {
   console.log(`${client.user.tag} se ha conectado`);
@@ -48,8 +38,8 @@ client.on("message", (message) => {
 
   if(message.channel.type === "dm" || message.mentions.users.some(user => user.id === client.user.id)){
     let message_out = response(message);
-    message_out.then( (value)=>{
-      message.channel.send(value.answer || "No entiendo que dices");
+    message_out.then( (response)=>{
+      message.channel.send(response.data || "No entiendo que dices");
     })
   }
 
