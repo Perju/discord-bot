@@ -4,15 +4,15 @@ const { Client } = require("discord.js");
 
 const client = new Client();
 
-const response = async (message) => {
+const response = async (message, nombre) => {
   const options = {
     method: "GET",
     url: "http://127.0.0.1:3000/nlp",
     json: true,
-    data: { frase: message.content }
-  }
+    data: { frase: message, nombre: nombre },
+  };
   return await axios(options);
-}
+};
 const PREFIX = "$";
 
 client.on("ready", () => {
@@ -30,17 +30,15 @@ client.on("presenceUpdate", (oldPres, newPres) => {
 client.on("message", (message) => {
   if (message.author.bot) return;
 
-  // TODO usar nlp para los saludos
-  // if (message.content.toLowerCase().includes("hola")) {
-  //   let str = sms.util.getRndEl(sms.text.hello);
-  //   message.channel.send(str + " " + message.author.username);
-  // }
-
-  if(message.channel.type === "dm" || message.mentions.users.some(user => user.id === client.user.id)){
-    let message_out = response(message);
-    message_out.then( (response)=>{
-      message.channel.send(response.data || "No entiendo que dices");
-    })
+  if (
+    message.channel.type === "dm" ||
+    message.mentions.users.some((user) => user.id === client.user.id)
+  ) {
+    let message_out = response(message.content, message.author.username);
+    message_out.then((response) => {
+      let responseTxt = response.data || "No entiendo que dices";
+      message.channel.send(responseTxt);
+    });
   }
 
   if (message.content.startsWith(PREFIX)) {
