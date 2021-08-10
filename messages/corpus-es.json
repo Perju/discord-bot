@@ -1,0 +1,22 @@
+{
+  "name": "Name of the corpus",
+  "locale": "es-ES",
+  "data": [
+    {
+      "intent": "saludos.adios",
+      "utterances": [
+        "hasta luego",
+        "que te vaya bien",
+        "nos vemos",
+        "hasta la próxima",
+        "tengo que irme"
+      ],
+      "answers": ["Hasta la próxima", "¡Nos vemos pronto!"]
+    },
+    {
+      "intent": "saludos.hola",
+      "utterances": ["hola", "Un saludo", "ey"],
+      "answers": ["Que pasa!", "Saludos!"]
+    }
+  ]
+}

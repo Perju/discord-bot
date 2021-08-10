@@ -1,0 +1,22 @@
+{
+  "name": "Name of the corpus",
+  "locale": "en-US",
+  "data": [
+    {
+      "intent": "greetings.bye",
+      "utterances": [
+        "goodbye for now",
+        "bye bye take care",
+        "okay see you later",
+        "bye for now",
+        "i must go"
+      ],
+      "answers": ["till next time", "see you soon!"]
+    },
+    {
+      "intent": "greetings.hello",
+      "utterances": ["hello", "hi", "howdy"],
+      "answers": ["Hey there!", "Greetings!"]
+    }
+  ]
+}
